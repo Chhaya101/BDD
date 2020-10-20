@@ -1,0 +1,33 @@
+Feature: Login functionality of Amazon
+
+	  Scenario Outline: Validate the login with valid credentials
+    Given Login URL of Amazon
+    When I login with valid <Email> and valid <Password>
+    Then I am able to navigate to the home page
+    Examples:
+    |Email|Password|
+    |"chhayagupta100@yahoo.com"|"abc"|
+    
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+package runner;
+
+import cucumber.api.junit.Cucumber;
+
+import org.junit.runner.RunWith;
+
+import cucumber.api.CucumberOptions;
+
+@RunWith(Cucumber.class)
+@CucumberOptions(
+		features="src/test/resources/features",
+		glue= {"stepDefination"},
+		plugin = {"pretty",
+        "json:reports/cucumber.json",
+        "html:reports/cucumber"}
+)
+
+public class testRunner {
+
+}
