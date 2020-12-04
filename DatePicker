@@ -1,0 +1,135 @@
+package testngselenium;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class DatePicker {
+	public static void main(String[] args)
+	{
+		
+		System.setProperty("webdriver.chrome.driver","C:\\Eclipse\\chromedriver.exe");
+		
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
+		driver.manage().timeouts().pageLoadTimeout(40, TimeUnit.SECONDS);
+		//Deleting all the cookies
+		driver.manage().deleteAllCookies();
+		try {
+			driver.get("https://www.expedia.com/");
+			driver.findElement(By.xpath("//span[text()='Stays']")).click();
+	/*
+	String month = "November 2020";
+	String date = "15";
+	
+	String month1 = "January 2021";
+	String date1 = "25";
+	
+	//System.out.println(text);
+	driver.findElement(By.xpath("//button[@id='d1-btn']")).click();
+	
+	while(true){
+		Thread.sleep(5000);
+		String text = driver.findElement(By.cssSelector("h2.uitk-new-date-picker-month-name.uitk-type-medium")).getText();
+		System.out.println(text);
+		if(text.equals(month)) {
+			break;
+		}
+		else {
+			Thread.sleep(5000);
+			WebElement element = driver.findElement(By.cssSelector("svg[aria-labelledby='nextMonth-title']"));
+			//driver.findElement(By.cssSelector("svg[aria-labelledby='nextMonth-title']")).click();
+			 
+	*/
+			/*JavascriptExecutor js = (JavascriptExecutor)driver;
+			
+			js.executeScript("arguments[0].click();", element);
+			*/
+	/*		Actions actions = new Actions(driver);
+			actions.moveToElement(element).click().perform();		
+		}
+		
+	}
+	
+	
+	List<WebElement> allDates = driver.findElements(By.xpath("//button[@class='uitk-new-date-picker-day']"));	
+	
+	//List<WebElement> allDates = driver.findElements(By.xpath("//table[@class='uitk-new-date-picker-weeks']//tbody[1]//tr//td//button[1]"));
+	System.out.println("ok");		
+	for(WebElement e: allDates) {
+	System.out.println(e.getAttribute("data-day"));
+	if(e.getAttribute("data-day").equals(date)) {
+		e.click();
+		break;
+			}
+	}
+		
+	while(true){
+		Thread.sleep(5000);
+		String text1 = driver.findElement(By.cssSelector("h2.uitk-new-date-picker-month-name.uitk-type-medium")).getText();
+		System.out.println(text1);
+		if(text1.equals(month1)) {
+			break;
+		}
+		else {
+			Thread.sleep(5000);
+			WebElement element1 = driver.findElement(By.cssSelector("svg[aria-labelledby='nextMonth-title']"));
+			Actions actions = new Actions(driver);
+			actions.moveToElement(element1).click().perform();		
+		}
+		
+	}
+List<WebElement> allDates1 = driver.findElements(By.xpath("//button[@class='uitk-new-date-picker-day']"));	
+	
+	//List<WebElement> allDates = driver.findElements(By.xpath("//table[@class='uitk-new-date-picker-weeks']//tbody[1]//tr//td//button[1]"));
+	System.out.println("ok1");		
+
+	for(WebElement e: allDates1) {
+	System.out.println(e.getAttribute("data-day"));
+	if(e.getAttribute("data-day").equals(date1)) {
+		e.click();
+		//String date_text = e.getAttribute("data-day");
+		//string date[1] = date_text.split("\n"); \n means next line its a reg expr
+		break;
+			}
+	}
+	
+	driver.findElement(By.xpath("//span[text()='Done']")).click(); */
+			
+			//Travelers
+			 
+			Thread.sleep(5000);
+			driver.findElement(By.xpath("//a[@aria-label='Travelers']")).click();
+			//driver.findElement(By.xpath("//button[contains(text(),'1 room, 2 travelers')]")).click();
+			//button[contains(text(),'1 room, 2 travelers')]
+			
+			//Adults
+			while(true) {
+			Thread.sleep(5000);
+			String e = driver.findElement(By.id("adult-input-0")).getAttribute("value");
+			System.out.println(e);
+			String no= "4";
+			if (e.equals(no))
+			{
+				break;
+			}
+			else {
+			driver.findElement(By.cssSelector("svg[aria-labelledby*='uitk-step-increase-adults']")).click();
+			}
+		}
+}
+	catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+						}
+		}
+}
+	
