@@ -1,0 +1,124 @@
+package testngselenium;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.By.ById;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.*;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+
+
+public class MakeMyTrip{
+	public static void main(String[] args)
+	{
+		
+		System.setProperty("webdriver.chrome.driver","C:\\Eclipse\\chromedriver.exe");
+		
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
+		driver.manage().timeouts().pageLoadTimeout(40, TimeUnit.SECONDS);
+		//Deleting all the cookies
+		driver.manage().deleteAllCookies();
+		try {
+			driver.get("https://www.makemytrip.com/");
+			Thread.sleep(4000);
+			
+			//Hotels
+			driver.findElement(By.cssSelector("ul.makeFlex.font12 li:nth-of-type(2)")).click();
+			Thread.sleep(4000);
+			//Enter city
+			driver.findElement(By.xpath("//div[@class='hsw_inputBox selectHtlCity  ']")).click();
+			driver.findElement(By.cssSelector(".react-autosuggest__input.react-autosuggest__input--open")).sendKeys("Pune");
+			Thread.sleep(4000);
+			List<WebElement> drp = driver.findElements(By.xpath("//div[@id='react-autowhatever-1']//ul[@class='react-autosuggest__suggestions-list']/li"));
+			System.out.println(drp.get(1).getText());
+			drp.get(1).click();
+			
+			//check-in
+			driver.findElement(By.id("checkin")).click();
+			Thread.sleep(4000);
+			driver.findElement(By.xpath("//div[@class='DayPicker-Day'][contains(@aria-label,'Wed Jun 24 2020')]")).click();
+
+			//checkout
+			Thread.sleep(5000);
+			//driver.findElement(By.xpath("//div[@class='DayPicker-Day DayPicker-Day--selected'][contains(@aria-label,'Wed Jun 24 2020')]")).click();
+			driver.findElement(By.xpath("/html/body/div/div/div[2]/div/div/div[2]/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div[2]/div[1]/div[3]/div[4]/div[5]")).click();
+
+			//Rooms and Guests
+			driver.findElement(By.id("guest")).click();
+			List<WebElement> adultr = driver.findElements(By.xpath("//ul[@class='guestCounter font12 darkText' and @data-cy='adultCount']/li"));
+			for(int i=0; i<adultr.size(); i++) {
+				if(adultr.get(i).getText().equals("2")) {
+					adultr.get(2).click();
+				}
+			}
+
+			driver.findElement(By.cssSelector("button.primaryBtn.btnApply")).click();
+			
+			//search
+			driver.findElement(By.cssSelector("button.primaryBtn.font24.latoBold.widgetSearchBtn")).click();
+			
+			//to close map
+			//driver.findElement(By.xpath("//div[@class='headerRight noShrink']/a[@class='mapCont']")).click();
+			//driver.findElement(By.xpath("//span[@class='mapClose']")).click();
+			
+			//Filters
+			Thread.sleep(5000);					
+			/*JavascriptExecutor js = (JavascriptExecutor)driver;
+			WebElement element = driver.findElement(By.xpath("//label[text()='5 Star']"));
+			js.executeScript("arguments[0].click();", ele1);
+			js.executeScript("arguments[0].click();", element);*/
+
+			Thread.sleep(5000);
+			driver.findElement(By.xpath("//label[text()='5 Star']")).click();
+			Thread.sleep(5000);
+			driver.findElement(By.xpath("//label[text()='Hotel']")).click();
+			
+			//click on Hotel
+			Thread.sleep(5000);
+			driver.findElement(By.xpath("//div[@id='Listing_hotel_0']")).click();
+			
+			//Open child windwow
+			String Parent = driver.getWindowHandle();
+			for (String SubWindow:driver.getWindowHandles())
+			{
+				if(!Parent.equalsIgnoreCase(SubWindow))
+				{
+				driver.switchTo().window(SubWindow);
+				}
+				
+			}
+			
+			//click on BookNow
+			Thread.sleep(5000);
+			System.out.println(driver.findElement(By.xpath("//p[text()='About The Hotel']")).getText());
+			driver.findElement(By.cssSelector("a.primaryBtn[id='detpg_headerright_book_now']")).click();
+			
+			//Pay now page
+			driver.findElement(By.id("fName")).sendKeys("chhaya");
+			driver.findElement(By.id("lName")).sendKeys("gupta");
+			driver.findElement(By.id("email")).sendKeys("chhayagupta@hotmail.com");
+			driver.findElement(By.id("mNo")).sendKeys("9969781987");
+			driver.findElement(By.cssSelector("a.primaryBtn.btnPayNow")).click();
+			
+			driver.quit();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+		
+	}
+}
+
